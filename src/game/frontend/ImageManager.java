@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class ImageManager {
 
-	private static final String IMAGE_PATH = "images/";
+	private static final String IMAGE_PATH = "/images/";
 	private Map<String, Image> images;
 
 	public ImageManager() {
