@@ -1,5 +1,6 @@
 package game.frontend;
 
+import javafx.scene.effect.Effect;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
@@ -38,6 +39,10 @@ public class BoardPanel extends TilePane {
 		spotLight.setElevation(100);
 		Lighting lighting = new Lighting(spotLight);
 		cells[row][column].setEffect(lighting);
+	}
+
+	public void stopGoldenEffect(int row, int column){
+		cells[row][column].setEffect(null);
 	}
 
 }
