@@ -3,14 +3,26 @@ package game.backend;
 import game.backend.cell.Cell;
 import game.backend.element.Element;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CandyGame implements GameListener {
 	
 	private Class<?> levelClass;
+	private int levelIndex =0;
 	private Grid grid;
 	private GameState state;
+
+	private List<Class<?>>levels = new ArrayList<>();
 	
-	public CandyGame(Class<?> clazz) {
-		this.levelClass = clazz;
+	public CandyGame(List<Class<?>> levels) {
+
+		if(!levels.isEmpty()) {
+			this.levels = levels;
+			this.levelClass = levels.get(0);
+		}
+		else
+			throw new IllegalArgumentException("At least one level must be passed");
 	}
 	
 	public void initGame() {
@@ -24,16 +36,22 @@ public class CandyGame implements GameListener {
 		addGameListener(this);
 	}
 
-	public void NextLevel(Class<?> clazz) {
-		this.levelClass = clazz;
-		try {
-			grid = (Grid)levelClass.newInstance();
-		} catch(IllegalAccessException | InstantiationException e) {
-			System.out.println("ERROR AL INICIAR");
+	public boolean hasNextLevel(){
+		return levels.size() > levelIndex+1;
+	}
+
+	public void nextLevel() {
+		if(hasNextLevel()) {
+			this.levelClass = levels.get(++levelIndex);
+			try {
+				grid = (Grid) levelClass.newInstance();
+			} catch (IllegalAccessException | InstantiationException e) {
+				System.out.println("ERROR AL INICIAR");
+			}
+			state = grid.createState();
+			grid.initialize();
+			addGameListener(this);
 		}
-		state = grid.createState();
-		grid.initialize();
-		addGameListener(this);
 	}
 	
 	public int getSize() {
@@ -72,6 +90,14 @@ public class CandyGame implements GameListener {
 	@Override
 	public void gridUpdated() {
 		//
+	}
+
+	public int maxMovements(){
+		return state.getMaxMoves();
+	}
+
+	public int currMovements(){
+		return state.getMoves();
 	}
 
 }
