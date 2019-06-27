@@ -2,7 +2,9 @@ package game.frontend;
 
 import game.backend.CandyGame;
 import game.backend.GameListener;
+import game.backend.cell.CandyGeneratorCell;
 import game.backend.cell.Cell;
+import game.backend.cell.GoldenCell;
 import game.backend.element.Element;
 
 import javafx.animation.KeyFrame;
@@ -46,8 +48,15 @@ public class CandyFrame extends VBox {
 						Cell cell = CandyFrame.this.game.get(i, j);
 						Element element = cell.getContent();
 						Image image = images.getImage(element);
+
+						if(cell instanceof GoldenCell && ((GoldenCell)cell).getGoldenState())  //NOOOOOOOOO
+							timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setGoldenEffect(finalI, finalJ)));
+
 						timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(finalI, finalJ, null)));
 						timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(finalI, finalJ, image)));
+
+
+
 					}
 					frameTime = frameTime.add(frameGap);
 				}

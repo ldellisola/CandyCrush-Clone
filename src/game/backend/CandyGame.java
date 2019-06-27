@@ -23,6 +23,18 @@ public class CandyGame implements GameListener {
 		grid.initialize();
 		addGameListener(this);
 	}
+
+	public void NextLevel(Class<?> clazz) {
+		this.levelClass = clazz;
+		try {
+			grid = (Grid)levelClass.newInstance();
+		} catch(IllegalAccessException | InstantiationException e) {
+			System.out.println("ERROR AL INICIAR");
+		}
+		state = grid.createState();
+		grid.initialize();
+		addGameListener(this);
+	}
 	
 	public int getSize() {
 		return Grid.SIZE;
