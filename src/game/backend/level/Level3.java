@@ -15,6 +15,8 @@ public class Level3 extends Grid {
 	private static final int cherrys = 5;
 	private static final int maxMoves = 200;
 
+	private int cherrysFound = 0;
+
 	private Cell wallCell;
 	private Cell candyGenCell;
 
@@ -62,6 +64,7 @@ public class Level3 extends Grid {
 				if (g()[SIZE - 1][j].getContent().equals(new Cherry())) {
 					g()[SIZE - 1][j].setContent(new Nothing()); // CANCER
 					found = true;
+					cherrysFound++;
 				}
 			}
 			super.fallElements();
@@ -114,17 +117,7 @@ public class Level3 extends Grid {
 
 		@Override
 		public boolean playerWon() {
-			boolean containsFruit = false;
-
-			for (int i = 0; i < SIZE && !containsFruit ; i++) {
-				for (int j = 0; j < SIZE && !containsFruit; j++) {
-					if(g()[i][j].getContent().getKey() == "CHERRY")
-						containsFruit = true;
-				}
-
-			}
-
-			return !containsFruit;
+			return cherrysFound == cherrys;
 		}
 	}
 }

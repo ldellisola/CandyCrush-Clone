@@ -71,8 +71,6 @@ public class Level2 extends GoldenGrid
         boolean ret;
         if (ret = super.tryMove(i1, j1, i2, j2)) {
             state().addMove();
-
-
         }
         return ret;
     }
