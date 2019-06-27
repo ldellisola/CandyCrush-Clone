@@ -41,7 +41,7 @@ public class Cell {
 	}
 	
 	public void clearContent() {
-		if (content.isMovable()) {
+		if (content.isMovable() && content.isDestoyable()) {
 			Direction[] explosionCascade = content.explode();
 			grid.cellExplosion(content);
 			this.content = new Nothing();

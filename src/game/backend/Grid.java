@@ -34,6 +34,8 @@ public abstract class Grid {
 	protected GameState state(){
 		return state;
 	}
+
+
 	
 	public void initialize() {
 		moveMaker = new MoveMaker(this);

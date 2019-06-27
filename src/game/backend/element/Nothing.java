@@ -17,4 +17,7 @@ public class Nothing extends Element {
 		return "NOTHING";
 	}
 
+	@Override
+	public boolean isDestoyable() {return false;}
+
 }

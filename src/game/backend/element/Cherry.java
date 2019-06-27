@@ -1,18 +1,16 @@
 package game.backend.element;
 
-public class Wall extends Element {
-	
+public class Cherry extends Element {
 	@Override
 	public boolean isMovable() {
-		return false;
+		return true;
 	}
-	
+
 	@Override
 	public String getKey() {
-		return "WALL";
+		return "CHERRY";
 	}
 
 	@Override
 	public boolean isDestoyable() {return false;}
-
 }
