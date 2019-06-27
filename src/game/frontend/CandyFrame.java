@@ -2,7 +2,6 @@ package game.frontend;
 
 import game.backend.CandyGame;
 import game.backend.GameListener;
-import game.backend.cell.CandyGeneratorCell;
 import game.backend.cell.Cell;
 import game.backend.cell.GoldenCell;
 import game.backend.element.Element;
@@ -24,6 +23,7 @@ public class CandyFrame extends VBox {
 	private ImageManager images;
 	private Point2D lastPoint;
 	private CandyGame game;
+	private MovementsPanel movements;
 
 	public CandyFrame(CandyGame game) {
 		this.game = game;
@@ -33,7 +33,50 @@ public class CandyFrame extends VBox {
 		getChildren().add(boardPanel);
 		scorePanel = new ScorePanel();
 		getChildren().add(scorePanel);
+		movements = new MovementsPanel();
+		getChildren().add(movements);
+
 		game.initGame();
+
+		setUpGameListener();
+
+		addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+			if (lastPoint == null) {
+				lastPoint = translateCoords(event.getX(), event.getY());
+				System.out.println("Get first = " +  lastPoint);
+			} else {
+				Point2D newPoint = translateCoords(event.getX(), event.getY());
+				if (newPoint != null) {
+					System.out.println("Get second = " +  newPoint);
+					game().tryMove((int)lastPoint.getX(), (int)lastPoint.getY(), (int)newPoint.getX(), (int)newPoint.getY());
+					String message = ((Long)game().getScore()).toString();
+					movements.update(game().currMovements(),game().maxMovements());
+					if (game().isFinished()) {
+						if (game().playerWon()) {
+							message = message + " Finished - Player Won!";
+						} else {
+							message = message + " Finished - Loser !";
+						}
+						scorePanel.updateScore(message);
+
+						if(game().playerWon())
+							new WonLevelAlert(game());
+						else
+							new LostLevelAlert(game());
+
+						setUpGameListener();
+					}
+					else
+						scorePanel.updateScore(message);
+
+					lastPoint = null;
+				}
+			}
+		});
+
+	}
+
+	protected void setUpGameListener(){
 		GameListener listener;
 		game.addGameListener(listener = new GameListener() {
 			@Override
@@ -51,12 +94,11 @@ public class CandyFrame extends VBox {
 
 						if(cell instanceof GoldenCell && ((GoldenCell)cell).getGoldenState())  //NOOOOOOOOO
 							timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setGoldenEffect(finalI, finalJ)));
+						else
+							timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.stopGoldenEffect(finalI, finalJ)));
 
 						timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(finalI, finalJ, null)));
 						timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(finalI, finalJ, image)));
-
-
-
 					}
 					frameTime = frameTime.add(frameGap);
 				}
@@ -68,31 +110,8 @@ public class CandyFrame extends VBox {
 			}
 		});
 
+		movements.update(game().currMovements(),game().maxMovements());
 		listener.gridUpdated();
-
-		addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			if (lastPoint == null) {
-				lastPoint = translateCoords(event.getX(), event.getY());
-				System.out.println("Get first = " +  lastPoint);
-			} else {
-				Point2D newPoint = translateCoords(event.getX(), event.getY());
-				if (newPoint != null) {
-					System.out.println("Get second = " +  newPoint);
-					game().tryMove((int)lastPoint.getX(), (int)lastPoint.getY(), (int)newPoint.getX(), (int)newPoint.getY());
-					String message = ((Long)game().getScore()).toString();
-					if (game().isFinished()) {
-						if (game().playerWon()) {
-							message = message + " Finished - Player Won!";
-						} else {
-							message = message + " Finished - Loser !";
-						}
-					}
-					scorePanel.updateScore(message);
-					lastPoint = null;
-				}
-			}
-		});
-
 	}
 
 	private CandyGame game() {
