@@ -60,6 +60,7 @@ public class MoveMaker {
 		map.put(new Cherry().getKey() + new VerticalStripedCandy().getKey(), new CherryMove(grid));
 		map.put(new Cherry().getKey() + new WrappedCandy().getKey(), new CherryMove(grid));
 		map.put(new Cherry().getKey() + new Bomb().getKey(), new CherryMove(grid));
+		map.put(new Cherry().getKey() + new Cherry().getKey(), new CherryMove(grid));
 	}
 	
 	public Move getMove(int i1, int j1, int i2, int j2) {
