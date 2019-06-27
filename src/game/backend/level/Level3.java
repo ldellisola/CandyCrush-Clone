@@ -1,18 +1,18 @@
 package game.backend.level;
 
+import game.backend.Figure;
 import game.backend.GameState;
 import game.backend.Grid;
 import game.backend.cell.CandyGeneratorCell;
 import game.backend.cell.Cell;
-import game.backend.element.Cherry;
-import game.backend.element.Nothing;
-import game.backend.element.Wall;
+import game.backend.element.*;
+import game.backend.move.BombMove;
 
 import java.security.Signature;
 import java.util.Random;
 
-public class Level3 extends Grid {
-	private static final int cherrys = 5;
+public class Level3 extends Level1 {
+	private static final int cherrys = 10;
 	private static final int maxMoves = 200;
 
 	private int cherrysFound = 0;
@@ -49,7 +49,6 @@ public class Level3 extends Grid {
 	public boolean tryMove(int i1, int j1, int i2, int j2) {
 		boolean ret;
 		if (ret = super.tryMove(i1, j1, i2, j2)) {
-			state().addMove();
 			fallElements();
 		}
 		return ret;
@@ -72,42 +71,6 @@ public class Level3 extends Grid {
 	}
 
 
-	@Override
-	protected void fillCells() {
-		wallCell = new Cell(this);
-		wallCell.setContent(new Wall());
-		candyGenCell = new CandyGeneratorCell(this);
-
-		//corners
-		g()[0][0].setAround(candyGenCell, g()[1][0], wallCell, g()[0][1]);
-		g()[0][SIZE-1].setAround(candyGenCell, g()[1][SIZE-1], g()[0][SIZE-2], wallCell);
-		g()[SIZE-1][0].setAround(g()[SIZE-2][0], wallCell, wallCell, g()[SIZE-1][1]);
-		g()[SIZE-1][SIZE-1].setAround(g()[SIZE-2][SIZE-1], wallCell, g()[SIZE-1][SIZE-2], wallCell);
-
-		//upper line cells
-		for (int j = 1; j < SIZE-1; j++) {
-			g()[0][j].setAround(candyGenCell,g()[1][j],g()[0][j-1],g()[0][j+1]);
-		}
-		//bottom line cells
-		for (int j = 1; j < SIZE-1; j++) {
-			g()[SIZE-1][j].setAround(g()[SIZE-2][j], wallCell, g()[SIZE-1][j-1],g()[SIZE-1][j+1]);
-		}
-		//left line cells
-		for (int i = 1; i < SIZE-1; i++) {
-			g()[i][0].setAround(g()[i-1][0],g()[i+1][0], wallCell ,g()[i][1]);
-		}
-		//right line cells
-		for (int i = 1; i < SIZE-1; i++) {
-			g()[i][SIZE-1].setAround(g()[i-1][SIZE-1],g()[i+1][SIZE-1], g()[i][SIZE-2], wallCell);
-		}
-		//central cells
-		for (int i = 1; i < SIZE-1; i++) {
-			for (int j = 1; j < SIZE-1; j++) {
-				g()[i][j].setAround(g()[i-1][j],g()[i+1][j],g()[i][j-1],g()[i][j+1]);
-			}
-		}
-	}
-
 	private class Level3State extends GameState{
 
 		@Override
@@ -119,5 +82,13 @@ public class Level3 extends Grid {
 		public boolean playerWon() {
 			return cherrysFound == cherrys;
 		}
+	}
+
+	@Override
+	public Figure tryRemove(Cell cell){
+		if(cell.getContent().isDestoyable())
+			return super.tryRemove(cell);
+		else
+			return null;
 	}
 }
