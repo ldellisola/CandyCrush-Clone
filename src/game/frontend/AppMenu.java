@@ -8,8 +8,8 @@ import java.util.Optional;
 public class AppMenu extends MenuBar {
 
     public AppMenu() {
-        Menu file = new Menu("Archivo");
-        MenuItem exitMenuItem = new MenuItem("Salir");
+        Menu file = new Menu("File");
+        MenuItem exitMenuItem = new MenuItem("Exit");
         exitMenuItem.setOnAction(event -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Salir");
@@ -23,8 +23,9 @@ public class AppMenu extends MenuBar {
             }
         });
         file.getItems().add(exitMenuItem);
-        Menu help = new Menu("Ayuda");
-        MenuItem aboutMenuItem = new MenuItem("Acerca De");
+
+        Menu help = new Menu("Help");
+        MenuItem aboutMenuItem = new MenuItem("About");
         aboutMenuItem.setOnAction(event -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Acerca De");
