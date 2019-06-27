@@ -12,4 +12,9 @@ public class LostLevelAlert extends EndLevelAlert {
 	protected boolean canHaveNextLevel() {
 		return false;
 	}
+
+	@Override
+	protected String getImagePath() {
+		return "/images/loser.png";
+	}
 }
