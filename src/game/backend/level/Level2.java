@@ -10,6 +10,8 @@ import game.backend.element.Wall;
 
 public class Level2 extends GoldenGrid
 {
+    private static final int MaxMoves = 20;
+
     private Cell wallCell ;
     private CandyGeneratorCell candyGenCell;
     @Override
@@ -56,8 +58,8 @@ public class Level2 extends GoldenGrid
     private class Level2State extends GameState{
 
         @Override
-        public boolean gameOver() {
-            return playerWon();
+        public int getMaxMoves(){
+            return MaxMoves;
         }
 
         @Override

@@ -71,24 +71,25 @@ public class Level3 extends Level1 {
 	}
 
 
-	private class Level3State extends GameState{
-
-		@Override
-		public boolean gameOver() {
-			return playerWon() || getMoves() > maxMoves;
-		}
-
-		@Override
-		public boolean playerWon() {
-			return cherrysFound == cherrys;
-		}
-	}
-
 	@Override
 	public Figure tryRemove(Cell cell){
 		if(cell.getContent().isDestoyable())
 			return super.tryRemove(cell);
 		else
 			return null;
+	}
+
+	private class Level3State extends GameState{
+
+
+		@Override
+		public int getMaxMoves() {
+			return maxMoves;
+		}
+		@Override
+		public boolean playerWon() {
+			return cherrysFound == cherrys;
+		}
+
 	}
 }

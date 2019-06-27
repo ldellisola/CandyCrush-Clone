@@ -8,7 +8,7 @@ import game.backend.element.Wall;
 
 public class Level1 extends Grid {
 	
-	private static int REQUIRED_SCORE = 5000; 
+	private static int REQUIRED_SCORE = 100;
 	private static int MAX_MOVES = 20; 
 	
 	private Cell wallCell;
@@ -67,17 +67,18 @@ public class Level1 extends Grid {
 	
 	private class Level1State extends GameState {
 		private long requiredScore;
-		private long maxMoves;
+		private int maxMoves;
 		
 		public Level1State(long requiredScore, int maxMoves) {
 			this.requiredScore = requiredScore;
 			this.maxMoves = maxMoves;
 		}
-		
-		public boolean gameOver() {
-			return playerWon() || getMoves() >= maxMoves;
+
+		@Override
+		public int getMaxMoves(){
+			return maxMoves;
 		}
-		
+
 		public boolean playerWon() {
 			return getScore() > requiredScore;
 		}
