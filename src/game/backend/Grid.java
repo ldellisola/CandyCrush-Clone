@@ -73,10 +73,10 @@ public abstract class Grid {
 						i = SIZE;
 						j = -1;
 						break;
-					} 
+					}
 				}
 				j++;
-			}	
+			}
 			i--;
 		}
 	}

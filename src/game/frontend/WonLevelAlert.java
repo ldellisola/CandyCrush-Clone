@@ -13,4 +13,9 @@ public class WonLevelAlert extends EndLevelAlert {
 	protected boolean canHaveNextLevel() {
 		return true;
 	}
+
+	@Override
+	protected String getImagePath() {
+		return "/images/winner.png";
+	}
 }
