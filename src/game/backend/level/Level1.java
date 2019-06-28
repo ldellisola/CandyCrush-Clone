@@ -10,9 +10,7 @@ public class Level1 extends Level {
 	
 	private static int REQUIRED_SCORE = 100;
 	private static int MAX_MOVES = 20; 
-	
-	/*private Cell wallCell;
-	private Cell candyGenCell;*/
+
 	
 	@Override
 	protected GameState newState() {

@@ -12,28 +12,10 @@ public class Level2  extends Level
 {
     private static final int MAX_MOVES = 20;
 
-    private Cell wallCell ;
-    private CandyGeneratorCell candyGenCell;
     @Override
     protected GameState newState() {
         return new Level2State();
     }
-
-
-
-    private class Level2State extends GameState{
-
-        @Override
-        public int getMaxMoves(){
-            return MAX_MOVES;
-        }
-
-        @Override
-        public boolean playerWon() {
-            return ((GoldenCell)g()[1][1]).getGoldenState();
-        }
-    }
-
 
     @Override
     protected void createGrid(){
@@ -68,6 +50,19 @@ public class Level2  extends Level
         } else {
             swapContent(i1, j1, i2, j2);
             return false;
+        }
+    }
+
+    private class Level2State extends GameState{
+
+        @Override
+        public int getMaxMoves(){
+            return MAX_MOVES;
+        }
+
+        @Override
+        public boolean playerWon() {
+            return ((GoldenCell)g()[1][1]).getGoldenState();
         }
     }
 }

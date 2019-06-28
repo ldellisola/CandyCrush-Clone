@@ -17,9 +17,6 @@ public class Level3 extends Level {
 
 	private int cherrysFound = 0;
 
-	private Cell wallCell;
-	private Cell candyGenCell;
-
 	@Override
 	protected GameState newState() {
 		return new Level3State();
@@ -38,21 +35,17 @@ public class Level3 extends Level {
 				g()[x][y].setContent(new Cherry());
 				i++;
 			}
-
-
-
 		}
-
 	}
 
-/*	@Override
+	@Override
 	public boolean tryMove(int i1, int j1, int i2, int j2) {
 		boolean ret;
 		if (ret = super.tryMove(i1, j1, i2, j2)) {
 			fallElements();
 		}
 		return ret;
-	}*/
+	}
 
 	@Override
 	public void fallElements(){
