@@ -11,9 +11,9 @@ import game.backend.move.BombMove;
 import java.security.Signature;
 import java.util.Random;
 
-public class Level3 extends Level1 {
-	private static final int cherrys = 10;
-	private static final int maxMoves = 200;
+public class Level3 extends Level {
+	private static final int CHERRIES = 10;
+	private static final int MAX_MOVES = 200;
 
 	private int cherrysFound = 0;
 
@@ -31,7 +31,7 @@ public class Level3 extends Level1 {
 
 		Random rand = new Random();
 
-		for (int i = 0; i < cherrys;) {
+		for (int i = 0; i < CHERRIES;) {
 			int x = rand.nextInt(SIZE-1),y = rand.nextInt(SIZE);
 
 			if(g()[x][y].getContent().getKey() != "CHERRY"){
@@ -45,14 +45,14 @@ public class Level3 extends Level1 {
 
 	}
 
-	@Override
+/*	@Override
 	public boolean tryMove(int i1, int j1, int i2, int j2) {
 		boolean ret;
 		if (ret = super.tryMove(i1, j1, i2, j2)) {
 			fallElements();
 		}
 		return ret;
-	}
+	}*/
 
 	@Override
 	public void fallElements(){
@@ -84,11 +84,11 @@ public class Level3 extends Level1 {
 
 		@Override
 		public int getMaxMoves() {
-			return maxMoves;
+			return MAX_MOVES;
 		}
 		@Override
 		public boolean playerWon() {
-			return cherrysFound == cherrys;
+			return cherrysFound == CHERRIES;
 		}
 
 	}
