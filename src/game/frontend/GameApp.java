@@ -21,9 +21,9 @@ public class GameApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		List<Class<?>> levels = new ArrayList<>();
-		levels.add(Level1.class);
 		levels.add(Level2.class);
 		levels.add(Level3.class);
+		levels.add(Level1.class);
 
 		CandyGame game = new CandyGame(levels);
 		CandyFrame frame = new CandyFrame(game);

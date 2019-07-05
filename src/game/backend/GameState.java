@@ -22,9 +22,13 @@ public abstract class GameState {
 	}
 
 	public abstract int getMaxMoves();
-	
+
+	public abstract int getGoal();
+	public abstract int getCurrentGoal();
+	public abstract String getGoalDescription();
+
 	public boolean gameOver(){
-		return playerWon() || getMoves() > getMaxMoves();
+		return playerWon() || getMoves() > getMaxMoves()-1;
 	}
 	
 	public abstract boolean playerWon();

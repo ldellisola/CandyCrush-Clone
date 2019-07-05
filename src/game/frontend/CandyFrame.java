@@ -24,6 +24,7 @@ public class CandyFrame extends VBox {
 	private Point2D lastPoint;
 	private CandyGame game;
 	private MovementsPanel movements;
+//	private GoalPanel goals;
 
 	public CandyFrame(CandyGame game) {
 		this.game = game;
@@ -35,6 +36,8 @@ public class CandyFrame extends VBox {
 		getChildren().add(scorePanel);
 		movements = new MovementsPanel();
 		getChildren().add(movements);
+		//goals = new GoalPanel();
+		//getChildren().add(goals);
 
 		game.initGame();
 
@@ -43,6 +46,7 @@ public class CandyFrame extends VBox {
 		addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 			if (lastPoint == null) {
 				lastPoint = translateCoords(event.getX(), event.getY());
+
 				System.out.println("Get first = " +  lastPoint);
 			} else {
 				Point2D newPoint = translateCoords(event.getX(), event.getY());
@@ -51,6 +55,7 @@ public class CandyFrame extends VBox {
 					game().tryMove((int)lastPoint.getX(), (int)lastPoint.getY(), (int)newPoint.getX(), (int)newPoint.getY());
 					String message = ((Long)game().getScore()).toString();
 					movements.update(game().currMovements(),game().maxMovements());
+					//goals.update(game().getCurrentGoal(),game().getGoal(),game().getGoalDescription());
 					if (game().isFinished()) {
 						if (game().playerWon()) {
 							message = message + " Finished - Player Won!";
@@ -66,8 +71,9 @@ public class CandyFrame extends VBox {
 
 						setUpGameListener();
 					}
-					else
+					else {
 						scorePanel.updateScore(message);
+					}
 
 					lastPoint = null;
 				}
@@ -78,40 +84,17 @@ public class CandyFrame extends VBox {
 
 	protected void setUpGameListener(){
 		GameListener listener;
-		game.addGameListener(listener = new GameListener() {
-			@Override
-			public void gridUpdated() {
-				Timeline timeLine = new Timeline();
-				Duration frameGap = Duration.millis(100);
-				Duration frameTime = Duration.ZERO;
-				for (int i = game().getSize() - 1; i >= 0; i--) {
-					for (int j = game().getSize() - 1; j >= 0; j--) {
-						int finalI = i;
-						int finalJ = j;
-						Cell cell = CandyFrame.this.game.get(i, j);
-						Element element = cell.getContent();
-						Image image = images.getImage(element);
+		game.addGameListener(new BasicGameListener());
 
-						if(cell instanceof GoldenCell && ((GoldenCell)cell).getGoldenState())  //NOOOOOOOOO
-							timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setGoldenEffect(finalI, finalJ)));
-						else
-							timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.stopGoldenEffect(finalI, finalJ)));
+		game.addGameListener(new GoldenGameListener(game(),boardPanel));
 
-						timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(finalI, finalJ, null)));
-						timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(finalI, finalJ, image)));
-					}
-					frameTime = frameTime.add(frameGap);
-				}
-				timeLine.play();
-			}
-			@Override
-			public void cellExplosion(Element e) {
-				//
-			}
-		});
+		GoalListener list = new GoalListener(game());
+		getChildren().add(list.getPanel());
+		game.addGameListener(list);
 
 		movements.update(game().currMovements(),game().maxMovements());
-		listener.gridUpdated();
+
+		game().updateListeners();
 	}
 
 	private CandyGame game() {
@@ -123,5 +106,35 @@ public class CandyFrame extends VBox {
 		double j = y / CELL_SIZE;
 		return (i >= 0 && i < game.getSize() && j >= 0 && j < game.getSize()) ? new Point2D(j, i) : null;
 	}
+
+	private class BasicGameListener implements GameListener{
+		@Override
+		public void gridUpdated() {
+			Timeline timeLine = new Timeline();
+			Duration frameGap = Duration.millis(100);
+			Duration frameTime = Duration.ZERO;
+			for (int i = game().getSize() - 1; i >= 0; i--) {
+				for (int j = game().getSize() - 1; j >= 0; j--) {
+					int finalI = i;
+					int finalJ = j;
+					Cell cell = CandyFrame.this.game.get(i, j);
+					Element element = cell.getContent();
+					Image image = images.getImage(element);
+
+					timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(finalI, finalJ, null)));
+					timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> boardPanel.setImage(finalI, finalJ, image)));
+				}
+				frameTime = frameTime.add(frameGap);
+			}
+			timeLine.play();
+		}
+		@Override
+		public void cellExplosion(Element e) {
+			//
+		}
+	}
+
+
+
 
 }

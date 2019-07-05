@@ -2,6 +2,7 @@ package game.backend;
 
 import game.backend.cell.Cell;
 import game.backend.element.Element;
+import game.backend.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,8 @@ public class CandyGame implements GameListener {
 	private GameState state;
 
 	private List<Class<?>>levels = new ArrayList<>();
+
+	public Level getCurrentLevel(){return (Level)grid;}
 	
 	public CandyGame(List<Class<?>> levels) {
 
@@ -42,6 +45,7 @@ public class CandyGame implements GameListener {
 
 	public void nextLevel() {
 		if(hasNextLevel()) {
+			grid.wasUpdated();
 			this.levelClass = levels.get(++levelIndex);
 			try {
 				grid = (Grid) levelClass.newInstance();
@@ -73,6 +77,12 @@ public class CandyGame implements GameListener {
 	public long getScore() {
 		return state.getScore();
 	}
+
+	public int getGoal(){return state.getGoal();}
+
+	public int getCurrentGoal(){return state.getCurrentGoal();}
+
+	public String getGoalDescription() {return state.getGoalDescription();}
 	
 	public boolean isFinished() {
 		return state.gameOver();
@@ -90,6 +100,10 @@ public class CandyGame implements GameListener {
 	@Override
 	public void gridUpdated() {
 		//
+	}
+
+	public void updateListeners(){
+		grid.wasUpdated();
 	}
 
 	public int maxMovements(){

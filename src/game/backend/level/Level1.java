@@ -8,7 +8,7 @@ import game.backend.element.Wall;
 
 public class Level1 extends Level {
 	
-	private static int REQUIRED_SCORE = 100;
+	private static int REQUIRED_SCORE = 1000;
 	private static int MAX_MOVES = 20; 
 
 	
@@ -30,6 +30,21 @@ public class Level1 extends Level {
 		@Override
 		public int getMaxMoves(){
 			return maxMoves;
+		}
+
+		@Override
+		public int getGoal() {
+			return REQUIRED_SCORE;
+		}
+
+		@Override
+		public int getCurrentGoal() {
+			return (int)getScore();
+		}
+
+		@Override
+		public String getGoalDescription() {
+			return "Score";
 		}
 
 		public boolean playerWon() {

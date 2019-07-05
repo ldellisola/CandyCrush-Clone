@@ -2,20 +2,16 @@ package game.backend.level;
 
 import game.backend.Figure;
 import game.backend.GameState;
-import game.backend.Grid;
-import game.backend.cell.CandyGeneratorCell;
 import game.backend.cell.Cell;
 import game.backend.element.*;
-import game.backend.move.BombMove;
 
-import java.security.Signature;
 import java.util.Random;
 
 public class Level3 extends Level {
 	private static final int CHERRIES = 10;
-	private static final int MAX_MOVES = 200;
+	private static final int MAX_MOVES = 20;
 
-	private int cherrysFound = 0;
+	private int cherriesFound = 0;
 
 	@Override
 	protected GameState newState() {
@@ -56,7 +52,7 @@ public class Level3 extends Level {
 				if (g()[SIZE - 1][j].getContent().equals(new Cherry())) {
 					g()[SIZE - 1][j].setContent(new Nothing()); // CANCER
 					found = true;
-					cherrysFound++;
+					cherriesFound++;
 				}
 			}
 			super.fallElements();
@@ -79,9 +75,25 @@ public class Level3 extends Level {
 		public int getMaxMoves() {
 			return MAX_MOVES;
 		}
+
+		@Override
+		public int getGoal() {
+			return CHERRIES;
+		}
+
+		@Override
+		public int getCurrentGoal() {
+			return cherriesFound;
+		}
+
+		@Override
+		public String getGoalDescription() {
+			return "Cherries";
+		}
+
 		@Override
 		public boolean playerWon() {
-			return cherrysFound == CHERRIES;
+			return cherriesFound == CHERRIES;
 		}
 
 	}

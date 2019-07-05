@@ -5,6 +5,7 @@ import game.backend.Grid;
 public class GoldenCell extends Cell {
     private boolean gold = false;
 
+
     public GoldenCell(Grid grid) {
         super(grid);
     }
@@ -16,5 +17,6 @@ public class GoldenCell extends Cell {
     public boolean getGoldenState(){
         return  this.gold;
     }
+
 
 }
