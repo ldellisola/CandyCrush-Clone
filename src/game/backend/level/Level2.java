@@ -40,30 +40,46 @@ public class Level2  extends Level
             state().addMove();
 
             if(i1==i2){
-                for (int i = 0; i < SIZE ; i++) {
-                    if(!((GoldenCell)g()[i1][i]).getGoldenState()) {
-                        ((GoldenCell) g()[i1][i]).setGoldenState();
-                        golden++;
-                    }
-                }
+                markHorizontalAsGolden(i1);
+
             }
             else if(j1==j2){
-                for (int i = 0; i < SIZE ; i++) {
-                    if(!((GoldenCell)g()[i][j2]).getGoldenState()) {
-                        ((GoldenCell) g()[i][j2]).setGoldenState();
-                        golden++;
-                    }                }
+                markVerticalAsGolden(j2);
             }
 
             move.removeElements();
             fallElements();
             wasUpdated();
             return true;
+
         } else {
+
             swapContent(i1, j1, i2, j2);
             return false;
         }
     }
+
+
+    private void markHorizontalAsGolden(int row){
+        for (int i = 0; i < SIZE ; i++) {
+            if(!((GoldenCell)g()[row][i]).getGoldenState()) {
+                ((GoldenCell) g()[row][i]).setGoldenState();
+                golden++;
+            }
+        }
+
+    }
+
+    private void markVerticalAsGolden(int column){
+        for (int i = 0; i < SIZE ; i++) {
+            if(!((GoldenCell)g()[i][column]).getGoldenState()) {
+                ((GoldenCell) g()[i][column]).setGoldenState();
+                golden++;
+            }
+        }
+
+    }
+
 
     private class Level2State extends GameState{
 
