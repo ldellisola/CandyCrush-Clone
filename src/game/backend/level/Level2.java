@@ -60,6 +60,7 @@ public class Level2  extends Level
     }
 
 
+
     private void markHorizontalAsGolden(int row){
         for (int i = 0; i < SIZE ; i++) {
             if(!((GoldenCell)g()[row][i]).getGoldenState()) {
