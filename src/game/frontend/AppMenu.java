@@ -12,9 +12,9 @@ public class AppMenu extends MenuBar {
         MenuItem exitMenuItem = new MenuItem("Exit");
         exitMenuItem.setOnAction(event -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Salir");
-            alert.setHeaderText("Salir de la aplicación");
-            alert.setContentText("¿Está seguro que desea salir de la aplicación?");
+            alert.setTitle("Exit");
+            alert.setHeaderText("Exit Application");
+            alert.setContentText("Are you sure you want to exit?");
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent()) {
                 if (result.get() == ButtonType.OK) {
@@ -28,10 +28,10 @@ public class AppMenu extends MenuBar {
         MenuItem aboutMenuItem = new MenuItem("About");
         aboutMenuItem.setOnAction(event -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Acerca De");
+            alert.setTitle("About");
             alert.setHeaderText("Candy TPE");
-            alert.setContentText("Cátedra POO 2018.\n" +
-                    "Implementación Original: Laura Zabaleta (POO 2013).");
+            alert.setContentText("POO 2019.\n" +
+                    " Original Implementation: Laura Zabaleta (POO 2013).");
             alert.showAndWait();
         });
         help.getItems().add(aboutMenuItem);

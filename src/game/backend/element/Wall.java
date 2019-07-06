@@ -13,6 +13,6 @@ public class Wall extends Element {
 	}
 
 	@Override
-	public boolean isDestoyable() {return false;}
+	public boolean isDestroyable() {return false;}
 
 }

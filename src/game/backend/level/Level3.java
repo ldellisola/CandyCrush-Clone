@@ -27,7 +27,7 @@ public class Level3 extends Level {
 		for (int i = 0; i < CHERRIES;) {
 			int x = rand.nextInt(SIZE-1),y = rand.nextInt(SIZE);
 
-			if(g()[x][y].getContent().getKey() != "CHERRY"){
+			if(!g()[x][y].getContent().getKey().equals("CHERRY")){
 				g()[x][y].setContent(new Cherry());
 				i++;
 			}
@@ -62,7 +62,7 @@ public class Level3 extends Level {
 
 	@Override
 	public Figure tryRemove(Cell cell){
-		if(cell.getContent().isDestoyable())
+		if(cell.getContent().isDestroyable())
 			return super.tryRemove(cell);
 		else
 			return null;

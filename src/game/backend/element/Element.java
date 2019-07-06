@@ -26,7 +26,7 @@ public abstract class Element {
 		return 0;
 	}
 
-	public boolean isDestoyable() {return true;}
+	public boolean isDestroyable() {return true;}
 
 	@Override
 	public boolean equals(Object obj){
