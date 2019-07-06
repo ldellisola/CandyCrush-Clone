@@ -1,4 +1,4 @@
-package game.frontend;
+package game.frontend.Panels;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

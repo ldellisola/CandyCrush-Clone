@@ -1,11 +1,11 @@
-package game.frontend;
+package game.frontend.Listeners;
 
 import game.backend.CandyGame;
 import game.backend.GameListener;
 import game.backend.cell.Cell;
 import game.backend.cell.GoldenCell;
 import game.backend.element.Element;
-import game.backend.level.Level2;
+import game.frontend.Panels.BoardPanel;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;

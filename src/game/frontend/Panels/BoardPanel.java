@@ -1,4 +1,4 @@
-package game.frontend;
+package game.frontend.Panels;
 
 import javafx.scene.effect.Effect;
 import javafx.scene.effect.Light;

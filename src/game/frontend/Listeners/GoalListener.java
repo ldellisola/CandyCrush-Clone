@@ -1,8 +1,9 @@
-package game.frontend;
+package game.frontend.Listeners;
 
 import game.backend.CandyGame;
 import game.backend.GameListener;
 import game.backend.element.Element;
+import game.frontend.Panels.GoalPanel;
 
 public class GoalListener implements GameListener {
 	private GoalPanel goals;
@@ -18,7 +19,7 @@ public class GoalListener implements GameListener {
 
 	@Override
 	public void gridUpdated() {
-		goals.update(game.getCurrentGoal(),game.getGoal(),game.getGoalDescription());
+
 	}
 
 	@Override

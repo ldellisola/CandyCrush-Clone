@@ -1,4 +1,4 @@
-package game.frontend;
+package game.frontend.Alerts;
 
 import game.backend.CandyGame;
 import javafx.application.Platform;

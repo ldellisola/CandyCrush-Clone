@@ -3,9 +3,16 @@ package game.frontend;
 import game.backend.CandyGame;
 import game.backend.GameListener;
 import game.backend.cell.Cell;
-import game.backend.cell.GoldenCell;
 import game.backend.element.Element;
 
+import game.frontend.Alerts.LostLevelAlert;
+import game.frontend.Alerts.WonLevelAlert;
+import game.frontend.Listeners.GameInfoListener;
+import game.frontend.Listeners.GoalListener;
+import game.frontend.Listeners.GoldenGameListener;
+import game.frontend.Panels.BoardPanel;
+import game.frontend.Panels.MovementsPanel;
+import game.frontend.Panels.ScorePanel;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Point2D;
@@ -19,12 +26,10 @@ public class CandyFrame extends VBox {
 	private static final int CELL_SIZE = 65;
 
 	private BoardPanel boardPanel;
-	private ScorePanel scorePanel;
 	private ImageManager images;
 	private Point2D lastPoint;
 	private CandyGame game;
-	private MovementsPanel movements;
-//	private GoalPanel goals;
+
 
 	public CandyFrame(CandyGame game) {
 		this.game = game;
@@ -32,12 +37,7 @@ public class CandyFrame extends VBox {
 		images = new ImageManager();
 		boardPanel = new BoardPanel(game.getSize(), game.getSize(), CELL_SIZE);
 		getChildren().add(boardPanel);
-		scorePanel = new ScorePanel();
-		getChildren().add(scorePanel);
-		movements = new MovementsPanel();
-		getChildren().add(movements);
-		//goals = new GoalPanel();
-		//getChildren().add(goals);
+
 
 		game.initGame();
 
@@ -54,26 +54,25 @@ public class CandyFrame extends VBox {
 					System.out.println("Get second = " +  newPoint);
 					game().tryMove((int)lastPoint.getX(), (int)lastPoint.getY(), (int)newPoint.getX(), (int)newPoint.getY());
 					String message = ((Long)game().getScore()).toString();
-					movements.update(game().currMovements(),game().maxMovements());
 					//goals.update(game().getCurrentGoal(),game().getGoal(),game().getGoalDescription());
-					if (game().isFinished()) {
-						if (game().playerWon()) {
-							message = message + " Finished - Player Won!";
-						} else {
-							message = message + " Finished - Loser !";
-						}
-						scorePanel.updateScore(message);
-
-						if(game().playerWon())
-							new WonLevelAlert(game());
-						else
-							new LostLevelAlert(game());
-
-						setUpGameListener();
-					}
-					else {
-						scorePanel.updateScore(message);
-					}
+//					if (game().isFinished()) {
+//						if (game().playerWon()) {
+//							message = message + " Finished - Player Won!";
+//						} else {
+//							message = message + " Finished - Loser !";
+//						}
+//						scorePanel.updateScore(message);
+//
+//						if(game().playerWon())
+//							new WonLevelAlert(game());
+//						else
+//							new LostLevelAlert(game());
+//
+//						setUpGameListener();
+//					}
+//					else {
+//						scorePanel.updateScore(message);
+//					}
 
 					lastPoint = null;
 				}
@@ -83,16 +82,13 @@ public class CandyFrame extends VBox {
 	}
 
 	protected void setUpGameListener(){
-		GameListener listener;
+		//GameListener listener;
 		game.addGameListener(new BasicGameListener());
 
 		game.addGameListener(new GoldenGameListener(game(),boardPanel));
 
-		GoalListener list = new GoalListener(game());
-		getChildren().add(list.getPanel());
-		game.addGameListener(list);
+		game.addGameListener(new GameInfoListener(this,game()));
 
-		movements.update(game().currMovements(),game().maxMovements());
 
 		game().updateListeners();
 	}

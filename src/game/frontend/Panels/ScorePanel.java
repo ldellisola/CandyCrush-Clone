@@ -1,4 +1,4 @@
-package game.frontend;
+package game.frontend.Panels;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -16,8 +16,8 @@ public class ScorePanel extends BorderPane {
 		setCenter(scoreLabel);
 	}
 	
-	public void updateScore(String text) {
-		scoreLabel.setText(String.format("Score: %s",text));
+	public void updateScore(long value) {
+		scoreLabel.setText(String.format("Score: %d",value));
 	}
 
 }
