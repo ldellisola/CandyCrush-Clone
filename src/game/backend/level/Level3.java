@@ -47,15 +47,15 @@ public class Level3 extends Level {
 	public void fallElements(){
 		boolean found = false;
 		do {
+			super.fallElements();
 			found = false;
 			for (int j = 0; j < SIZE; j++) {
 				if (g()[SIZE - 1][j].getContent().equals(new Cherry())) {
-					g()[SIZE - 1][j].setContent(new Nothing()); // CANCER
+					g()[SIZE - 1][j].setContent(new Nothing());
 					found = true;
 					cherriesFound++;
 				}
 			}
-			super.fallElements();
 		}while (found);
 	}
 

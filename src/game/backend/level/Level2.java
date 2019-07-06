@@ -57,6 +57,7 @@ public class Level2  extends Level
 
             move.removeElements();
             fallElements();
+            wasUpdated();
             return true;
         } else {
             swapContent(i1, j1, i2, j2);

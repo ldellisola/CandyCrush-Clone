@@ -8,11 +8,8 @@ import game.backend.element.Element;
 import game.frontend.Alerts.LostLevelAlert;
 import game.frontend.Alerts.WonLevelAlert;
 import game.frontend.Listeners.GameInfoListener;
-import game.frontend.Listeners.GoalListener;
 import game.frontend.Listeners.GoldenGameListener;
 import game.frontend.Panels.BoardPanel;
-import game.frontend.Panels.MovementsPanel;
-import game.frontend.Panels.ScorePanel;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Point2D;
@@ -20,6 +17,9 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CandyFrame extends VBox {
 
@@ -29,6 +29,7 @@ public class CandyFrame extends VBox {
 	private ImageManager images;
 	private Point2D lastPoint;
 	private CandyGame game;
+	private List<GameListener> listeners = new ArrayList<>();
 
 
 	public CandyFrame(CandyGame game) {
@@ -40,8 +41,8 @@ public class CandyFrame extends VBox {
 
 
 		game.initGame();
-
-		setUpGameListener();
+		createGameListener();
+		enableGameListener();
 
 		addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 			if (lastPoint == null) {
@@ -53,26 +54,17 @@ public class CandyFrame extends VBox {
 				if (newPoint != null) {
 					System.out.println("Get second = " +  newPoint);
 					game().tryMove((int)lastPoint.getX(), (int)lastPoint.getY(), (int)newPoint.getX(), (int)newPoint.getY());
-					String message = ((Long)game().getScore()).toString();
-					//goals.update(game().getCurrentGoal(),game().getGoal(),game().getGoalDescription());
-//					if (game().isFinished()) {
-//						if (game().playerWon()) {
-//							message = message + " Finished - Player Won!";
-//						} else {
-//							message = message + " Finished - Loser !";
-//						}
-//						scorePanel.updateScore(message);
-//
-//						if(game().playerWon())
-//							new WonLevelAlert(game());
-//						else
-//							new LostLevelAlert(game());
-//
-//						setUpGameListener();
-//					}
-//					else {
-//						scorePanel.updateScore(message);
-//					}
+
+					if (game().isFinished()) {
+
+
+						if(game().playerWon())
+							new WonLevelAlert(game());
+						else
+							new LostLevelAlert(game());
+						enableGameListener();
+
+					}
 
 					lastPoint = null;
 				}
@@ -81,14 +73,18 @@ public class CandyFrame extends VBox {
 
 	}
 
-	protected void setUpGameListener(){
-		//GameListener listener;
-		game.addGameListener(new BasicGameListener());
+	private void createGameListener(){
+		listeners.add(new BasicGameListener());
 
-		game.addGameListener(new GoldenGameListener(game(),boardPanel));
+		listeners.add(new GoldenGameListener(game(),boardPanel));
 
-		game.addGameListener(new GameInfoListener(this,game()));
+		listeners.add(new GameInfoListener(this,game()));
+	}
 
+	protected void enableGameListener(){
+
+		for(GameListener listener : listeners)
+			game().addGameListener(listener);
 
 		game().updateListeners();
 	}

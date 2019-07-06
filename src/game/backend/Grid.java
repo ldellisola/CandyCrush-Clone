@@ -96,6 +96,7 @@ public abstract class Grid {
 			System.out.println("Valid Combination");
 			move.removeElements();
 			fallElements();
+			wasUpdated();
 			return true;
 		} else {
 			System.out.println("Invalid Combination");

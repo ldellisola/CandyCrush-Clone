@@ -77,7 +77,7 @@ public class Cell {
 		Cell up = around[Direction.UP.ordinal()];
 		if (this.isEmpty() && !up.isEmpty() && up.isMovable()) {
 			this.content = up.getAndClearContent();
-			grid.wasUpdated();
+			//grid.wasUpdated(); PRUEBA
 			if (this.hasFloor()) {
 				grid.tryRemove(this);
 				return true;

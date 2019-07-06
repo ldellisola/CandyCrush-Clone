@@ -5,9 +5,11 @@ import game.backend.GameListener;
 import game.backend.cell.Cell;
 import game.backend.cell.GoldenCell;
 import game.backend.element.Element;
+import game.frontend.CandyFrame;
 import game.frontend.Panels.BoardPanel;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.image.Image;
 import javafx.util.Duration;
 
 public class GoldenGameListener implements GameListener {
@@ -50,23 +52,30 @@ public class GoldenGameListener implements GameListener {
 				timeLine.play();
 			}
 			else {
+
+
 				Timeline timeLine = new Timeline();
 				Duration frameGap = Duration.millis(100);
 				Duration frameTime = Duration.ZERO;
-				for (int i = game.getSize()-1; i  >= 0 ; i--) {
-					for (int j = game.getSize()-1; j >=0; j--) {
-						Cell cell = game.get(i, j);
+				for (int i = game.getSize() - 1; i >= 0; i--) {
+					for (int j = game.getSize() - 1; j >= 0; j--) {
 						int finalI = i;
 						int finalJ = j;
+						Cell cell = game.get(i, j);
 
-						if (cell instanceof GoldenCell && ((GoldenCell) cell).getGoldenState() && !goldenMatrix[i][j]) {  //SI
-							timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> panel.setGoldenEffect(finalI, finalJ)));
-							goldenMatrix[i][j] = true;
+						if(!goldenMatrix[i][j]){
+
+							if(cell instanceof GoldenCell && ((GoldenCell)cell).getGoldenState() ) { //NOOOOOOOOO
+								timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> panel.setGoldenEffect(finalI, finalJ)));
+								goldenMatrix[i][j] = true;
+							}else
+								timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> panel.stopGoldenEffect(finalI, finalJ)));
 						}
 					}
 					frameTime = frameTime.add(frameGap);
 				}
 				timeLine.play();
+
 			}
 		}
 

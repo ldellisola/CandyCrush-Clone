@@ -7,6 +7,12 @@ import game.frontend.CandyFrame;
 import game.frontend.Panels.GoalPanel;
 import game.frontend.Panels.MovementsPanel;
 import game.frontend.Panels.ScorePanel;
+import javafx.scene.layout.BorderPane;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 public class GameInfoListener implements GameListener {
 	private MovementsPanel movements = new MovementsPanel();
@@ -17,6 +23,11 @@ public class GameInfoListener implements GameListener {
 	public GameInfoListener(CandyFrame frame, CandyGame game){
 		this.game = game;
 		frame.getChildren().addAll(scorePanel, movements,goals);
+	}
+
+	public Collection<BorderPane> getPanes(){
+
+		return Arrays.asList(scorePanel,movements,goals);
 	}
 
 
