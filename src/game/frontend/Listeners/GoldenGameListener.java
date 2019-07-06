@@ -27,7 +27,67 @@ public class GoldenGameListener implements GameListener {
 	private void cleanGoldenMatrix(){
 		goldenMatrix= new boolean[game.getSize()][game.getSize()];
 	}
+
+
 	@Override
+	public void gridUpdated() {
+
+		if(game.getCurrentLevel().hasGoldenCells()){
+
+			Timeline timeLine = new Timeline();
+			Duration frameGap = Duration.millis(100);
+			Duration frameTime = Duration.ZERO;
+
+			if(game.isFinished()){
+
+				refresh( timeLine, frameGap, frameTime  );
+			}
+			else {
+				for (int i = game.getSize() -1; i >= 0; i--) {
+					for (int j = game.getSize() - 1; j >= 0; j--) {
+						int finalI = i;
+						int finalJ = j;
+						Cell cell = game.get(i, j);
+
+						if(!goldenMatrix[i][j]){
+
+							if(cell instanceof GoldenCell && ((GoldenCell)cell).getGoldenState() ) {
+								timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> panel.setGoldenEffect(finalI, finalJ)));
+								goldenMatrix[i][j] = true;
+							}else
+								timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> panel.stopGoldenEffect(finalI, finalJ)));
+						}
+					}
+					frameTime = frameTime.add(frameGap);
+				}
+				timeLine.play();
+
+			}
+		}
+
+	}
+
+
+
+	private void refresh(Timeline timeLine,Duration frameGap, Duration frameTime  ){
+		cleanGoldenMatrix();
+
+
+		for (int i = 0; i < game.getSize() ; i++) {
+			for (int j = 0; j < game.getSize() ; j++) {
+				Cell cell = game.get(i, j);
+				int finalI = i;
+				int finalJ = j;
+
+				timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> panel.stopGoldenEffect(finalI, finalJ)));
+			}
+			frameTime = frameTime.add(frameGap);
+		}
+		timeLine.play();
+
+	}
+
+	/*@Override
 	public void gridUpdated() {
 
 		if(game.getCurrentLevel().hasGoldenCells()){
@@ -65,11 +125,11 @@ public class GoldenGameListener implements GameListener {
 
 						if(!goldenMatrix[i][j]){
 
-							if(cell instanceof GoldenCell && ((GoldenCell)cell).getGoldenState() ) { //NOOOOOOOOO
+							if(cell instanceof GoldenCell && ((GoldenCell)cell).getGoldenState() ) {
 								timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> panel.setGoldenEffect(finalI, finalJ)));
 								goldenMatrix[i][j] = true;
-							}else
-								timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> panel.stopGoldenEffect(finalI, finalJ)));
+							}//else
+							//timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> panel.stopGoldenEffect(finalI, finalJ)));
 						}
 					}
 					frameTime = frameTime.add(frameGap);
@@ -79,7 +139,7 @@ public class GoldenGameListener implements GameListener {
 			}
 		}
 
-	}
+	}*/
 
 	@Override
 	public void cellExplosion(Element e) {
