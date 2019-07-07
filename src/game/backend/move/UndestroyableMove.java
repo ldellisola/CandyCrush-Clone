@@ -4,9 +4,9 @@ import game.backend.Figure;
 import game.backend.FigureDetector;
 import game.backend.Grid;
 
-public class CherryMove extends Move {
+public class UndestroyableMove extends Move {
 
-	public CherryMove(Grid grid) {
+	public UndestroyableMove(Grid grid) {
 		super(grid);
 		this.grid = grid;
 	}
@@ -14,9 +14,9 @@ public class CherryMove extends Move {
 	@Override
 	public boolean internalValidation() {
 		this.detector = new FigureDetector(grid);
-		if(grid.get(i1,j1).getKey() != "CHERRY")
+		if(grid.get(i1,j1).isDestroyable())
 		f1 = detector.checkFigure(i1, j1);
-		if(grid.get(i2,j2).getKey() != "CHERRY")
+		if(grid.get(i2,j2).isDestroyable())
 			f2 = detector.checkFigure(i2, j2);
 		return f1 != null || f2 != null;
 	}

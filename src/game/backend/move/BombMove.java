@@ -17,11 +17,10 @@ public class BombMove extends Move {
 		clearContent(i2, j2);
 		for(int i = 0; i < Grid.SIZE; i++) {
 			for(int j = 0; j < Grid.SIZE; j++) {
-				if (candy.equals(get(i, j)) && get(i,j).getKey() != "CHERRY") {
+				if (candy.equals(get(i, j))) {
 					clearContent(i, j);
 				}
 			}
 		}
 	}
-
 }

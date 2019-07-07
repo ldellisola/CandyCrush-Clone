@@ -8,10 +8,10 @@ import game.backend.element.*;
 import java.util.Random;
 
 public class Level3 extends Level {
-	private static final int CHERRIES = 10;
+	private static final int FRUITS = 5;
 	private static final int MAX_MOVES = 20;
 
-	private int cherriesFound = 0;
+	private int fruitsFound = 0;
 
 	@Override
 	protected GameState newState() {
@@ -21,14 +21,13 @@ public class Level3 extends Level {
 	@Override
 	public void initialize(){
 		super.initialize();
-
 		Random rand = new Random();
 
-		for (int i = 0; i < CHERRIES;) {
+		for (int i = 0; i < FRUITS;) {
 			int x = rand.nextInt(SIZE-1),y = rand.nextInt(SIZE);
-
-			if(!g()[x][y].getContent().equals(new Cherry())){
-				g()[x][y].setContent(new Cherry());
+			
+			if(!(g()[x][y].getContent() instanceof  UndestroyableElement)){
+				g()[x][y].setContent(rand.nextBoolean() ? new Hazelnut(): new Cherry());
 				i++;
 			}
 		}
@@ -50,10 +49,10 @@ public class Level3 extends Level {
 			super.fallElements();
 			found = false;
 			for (int j = 0; j < SIZE; j++) {
-				if (g()[SIZE - 1][j].getContent().equals(new Cherry())) {
+				if (g()[SIZE - 1][j].getContent().equals(new Cherry()) || g()[SIZE - 1][j].getContent().equals(new Hazelnut())) {
 					g()[SIZE - 1][j].setContent(new Nothing());
 					found = true;
-					cherriesFound++;
+					fruitsFound++;
 				}
 			}
 		}while (found);
@@ -78,22 +77,22 @@ public class Level3 extends Level {
 
 		@Override
 		public int getGoal() {
-			return CHERRIES;
+			return FRUITS;
 		}
 
 		@Override
 		public int getCurrentGoal() {
-			return cherriesFound;
+			return fruitsFound;
 		}
 
 		@Override
 		public String getGoalDescription() {
-			return "Cherries";
+			return "Cherries and Hazelnuts";
 		}
 
 		@Override
 		public boolean playerWon() {
-			return cherriesFound == CHERRIES;
+			return fruitsFound == FRUITS;
 		}
 
 	}

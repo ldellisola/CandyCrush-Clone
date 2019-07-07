@@ -1,16 +1,10 @@
 package game.backend.element;
 
-public class Cherry extends Element {
-	@Override
-	public boolean isMovable() {
-		return true;
-	}
+public class Cherry extends UndestroyableElement {
 
 	@Override
 	public String getKey() {
 		return "CHERRY";
 	}
 
-	@Override
-	public boolean isDestroyable() {return false;}
 }
