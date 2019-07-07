@@ -54,7 +54,7 @@ Por ultimo tenemos a las clases `Level1`, `Level2` y `Level3` que son los nivele
 
 El cambio más grande fue en la inicialización de la clase. Ahora en vez de tomar como variable a un nivel, recibe una lista con los niveles que tiene que ejecutar, luego dentro de la clase hay un control interno sobre que nivel tiene que ejecutar:
 
-```java
+```java 
 private int levelIndex = 0;
 private List<Class<?>> levels = new ArrayList<>();
 
@@ -93,7 +93,7 @@ public void nextLevel() {
 
 Por último, al agregar mayor funcionalidad a `GameState` se tuvieron que agregar algunos getters. Además se creó un método para poder actualizar los listeners:
 
-```java
+```java 
 public int getGoal(){return state.getGoal();}
 
 public int getCurrentGoal(){return state.getCurrentGoal();}
@@ -111,7 +111,7 @@ public int currMovements() {return state.getMoves();}
 
 La clase `GameState` fue modificada para poder acomodar a los nuevos objetivos de los niveles. Como todos los niveles pueden terminar de dos formas distintas, si el jugador gana o si el jugador hace mas movimientos del máximo, por lo que ahora `gameOver()` se define en base a funciones que tienen que definir los estados de los niveles que implementen la clase. De forma similar, como hay varias formas de ganar según el nivel, se implementaron funciones para poder ver que tan lejos esta de ganar el jugador y cual es el objetivo.
 
-```java
+```java 
 public abstract int getMaxMoves();
 
 public abstract int getGoal();
@@ -129,7 +129,7 @@ public boolean gameOver(){
 
 La clase abstracta `Grid` es la base del juego, por lo que se encarga solo de las cosas mas fundamentales como crear la grilla, cargarla de elementos y hacer que estos caigan cuando se hagan combinaciones validas.  En esta clase se separó la acción de crear la grilla con la de llenarla de elementos y hacer que caigan, y se ubicaron en el método que inicializa al objeto. Esto permite que si un nivel requiere otro tipo de celda, pueden sobreescribir solo la función `fillCells()` para que se creen celdas que hereden de `Cell`.
 
-```java
+```java 
 public void initialize() {
 	moveMaker = new MoveMaker(this);
 	figureDetector = new FigureDetector(this);
@@ -152,7 +152,7 @@ protected void createGrid(){
 
 El único cambio en esta clase es que solo se pueden combinar elementos si el elemento no es destruible.
 
-```java
+```java 
 public void clearContent() {
 	if (content.isMovable() && content.isDestoyable()) {
 		Direction[] explosionCascade = content.explode();
@@ -170,7 +170,7 @@ public void clearContent() {
 
 Como se implementó la funcionalidad de las Cherries, se tuvo que agregar un método `isDestroyable()` que indique si el elemento puede ser destruido. Si un elemento no puede ser destruido, entonces tiene que sobreescribir a este método para indicarlo. También, se sobreescribió el método `equals()` para verificar si dos elementos son iguales en base a la clave que se les asigna.
 
-```java
+```java 
 public boolean isDestoyable() {return true;}
 
 @Override
@@ -188,7 +188,7 @@ public boolean equals(Object obj){
 
 Se sobreescribió el método `isDestroyable()` para indicar que no es posible destruir al vacío.
 
-```java
+```java 
 @Override
 public boolean isDestroyable() {return false;}
 ```
@@ -197,7 +197,7 @@ public boolean isDestroyable() {return false;}
 
 Se sobreescribió el método `isDestroyable()` para indicar que no es posible destruir a las paredes.
 
-```java
+```java 
 @Override
 public boolean isDestroyable() {return false;}
 ```
@@ -206,7 +206,7 @@ public boolean isDestroyable() {return false;}
 
 Probablemente la clase la más modificada, debido a la estructura del programa, se consideró conveniente crear una clase intermedia `Level` que tenga toda la funcionalidad general de un nivel con una configuración de celdas paredes (`Wall`) y celdas generadoras de caramelos (`CandyGeneratorCell`). Y como este nivel es muy básico no requería cambiar nada mas, salvo crear la clase que implemente `GameState` para el nivel.
 
-```java
+```java 
 public class Level1 extends Level {
 	
 	private static int REQUIRED_SCORE = 1000;
@@ -255,7 +255,7 @@ En esta clase agregamos las interacciones entre las cherries y los demás carame
 
 La clase `CandyFrame` es la encargada de manejar la interacción con el jugador. Se modificó la clase para poder implementar de forma modular los listeners (clases que heredan a `GameListener`), para lograrlo se creó el método `createGameListeners()` que inicializa los listeners del frontend como lo son `BasicGameListener`, `GoldGameListener` y `GameInfoListener` y luego estos se cargan al Model (`CandyGame`) con el método `EnableGameListeners()`. De esta forma, se logró modularizar el código que estaba dentro del eventHandler.
 
-```java
+```java 
 private List<GameListener> listeners = new ArrayList<>();
 
 public CandyFrame(CandyGame game) {
@@ -307,7 +307,7 @@ protected void enableGameListener(){
 
 Tambien se convirtió al listener anónimo que estaba definido en una clase interna llamada `BasicGameListener` para que sea mas claro.
 
-```java
+```java 
 private class BasicGameListener implements GameListener{
 	@Override
 	public void gridUpdated() {
@@ -340,7 +340,7 @@ private class BasicGameListener implements GameListener{
 
 Se modificó `BoardPanel` para que pueda dibujar de dorado a la celda y tambien quitarle el efecto
 
-```java
+```java 
 public void setGoldenEffect(int row, int column) {
 	Light.Distant spotLight = new Light.Distant();
 	spotLight.setColor(Color.YELLOW);
@@ -360,5 +360,24 @@ El único cambio en la clase `ScorePanel` fue para que tome `long` en vez de `St
 
 
 ## Problemas encontrados durante el desarrollo 
+
+####Separación entre Frontend y Backend: 
+Aunque esto ya estaba implementado en el proyecto original, siguió siendo una complicación saber dónde debía estar cada clase. Sobretodo la distinción entre "marcar una celda como dorada" y "pintar de dorado una celda".
+
+####Estructura de los niveles: 
+Al principio del trabajo se discutió cuál era la mejor forma de organizar los niveles. Se debatió entre dos opciones: que los mismos extiendan de Grid o que haya una clase abstracta `Level` y luego cada nivel extienda de la misma. Se resolvió implementando la segunda opción.
+
+####Modularización: 
+Simultáneamente al problema de la organización de los “Levels” , se presentó otro problema: la repetición de código. Esto fue solucionado al mismo tiempo que se solucionó el caso anterior.
+
+####Diseño del GoldenBoard (Level 2) :  
+En un principio se pensó en crear una clase `GoldenGrid` la cual estaría formada solo por celdas de tipo golden, pero como sería utilizada únicamente por el nivel 2 se decidió que no era una buena implementación, ya que se separaba al nivel 2 del resto de los niveles. Esto fue solucionado cuando se optó por implementar la clase `GoldenGameListener`.
+Además no se podía hacer una buena implementación para que los cells se pinten de forma correcta. Luego de esto se buscó cómo optimizar la forma de pintar las celdas doradas con el objetivo de no volver a pintar un celda que ya tenía el efecto dorado.
+
+####Utilización de JavaFX:
+No se contaba con un gran conocimiento sobre JavaFX, por lo tanto se dificultó interpretar algunas partes del código original. 
+
+####Funcionamiento de la implementación provista por la cátedra:
+Por último, cabe destacar que no resultó fácil interpretar todas las clases que ya estaban implementadas por la cátedra, pero una vez leído el código con mucho detenimiento se logró comenzar a trabajar. 
 
 
