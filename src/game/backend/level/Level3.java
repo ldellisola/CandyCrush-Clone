@@ -26,7 +26,7 @@ public class Level3 extends Level {
 		for (int i = 0; i < FRUITS;) {
 			int x = rand.nextInt(SIZE-1),y = rand.nextInt(SIZE);
 			
-			if(!(g()[x][y].getContent() instanceof  UndestroyableElement)){
+			if(!(g()[x][y].getContent().isDestroyable())){
 				g()[x][y].setContent(rand.nextBoolean() ? new Hazelnut(): new Cherry());
 				i++;
 			}
@@ -49,7 +49,7 @@ public class Level3 extends Level {
 			super.fallElements();
 			found = false;
 			for (int j = 0; j < SIZE; j++) {
-				if (g()[SIZE - 1][j].getContent().equals(new Cherry()) || g()[SIZE - 1][j].getContent().equals(new Hazelnut())) {
+				if (g()[SIZE - 1][j].getContent().isDestroyable()) {
 					g()[SIZE - 1][j].setContent(new Nothing());
 					found = true;
 					fruitsFound++;

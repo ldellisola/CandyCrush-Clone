@@ -13,23 +13,22 @@ Para esta implementación es necesario tener muy en claro la distinción entre "
 
 Se agregó la clase Level 2 que extiende de Level. Su objetivo es marcar las celdas como doradas
 
-#####Class: GoldenCell 
+##### Class: GoldenCell 
 
 Esta clase permite marcar a las celdas como doradas luego de hacer un intercambio. 
 
-#####Class: GoldenGameListener
+##### Class: GoldenGameListener
 Se decidió hacer esta clase a fin de mejorar la eficiencia del Level 2. Su objetivo es que aquellas celdas que ya están pintadas de dorado no vuelvan a pintarse. 
 
-###CHERRY & HAZELNUT
+### CHERRY & HAZELNUT
 
 Se agregó la clase Level 3 que extiende de Level
 
-#####Class: Cherry - Class: Hazelnut
+##### Class: Cherry - Class: Hazelnut
 
 Dentro del package "element" agregamos las clases Cherry y Hazelnut que extienden de la clase abtracta Fruit. Estos elementos se marcan como indestructibles. 
 
-
-###Otras funcionalidades
+### Otras funcionalidades
 Se agregó el Package Alert cuyo objetivo es mostrar en pantalla si se ganó o perdió el nivel. 
 La clase GameInfoListener es la encargada de mostrar los paneles de Movimientos restantes, Score y GoldenCells pintadas o Cantidad de frutas restantes dependiendo de cada nivel.
 
@@ -37,7 +36,7 @@ La clase GameInfoListener es la encargada de mostrar los paneles de Movimientos 
 
 ### CandyGame.java
 
-El cambio mas grande fue en la inicializacion de la clase. Ahora en vez de tomar como variable a un nivel, recibe una lista con los niveles que tiene que ejecutar, luego dentro de la clase hay un control interno sobre que nivel tiene que ejecutar:
+El cambio mas grande fue en la inicialización de la clase. Ahora en vez de tomar como variable a un nivel, recibe una lista con los niveles que tiene que ejecutar, luego dentro de la clase hay un control interno sobre que nivel tiene que ejecutar:
 
 ```java
 private int levelIndex = 0;
@@ -53,7 +52,7 @@ public CandyGame(List<Class<?>> levels) {
 }
 ```
 
-Para el control de los niveles, y asegurarnos que solo esta clase se encargue de manejarlos, creamos dos funciones `nextLevel()` y `hasNextLevel()` que se encargan de poner el proximo nivel:
+Para el control de los niveles, y asegurarnos que solo esta clase se encargue de manejarlos, creamos dos funciones `nextLevel()` y `hasNextLevel()` que se encargan de poner el próximo nivel:
 
 ```java 
 public boolean hasNextLevel(){
