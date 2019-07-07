@@ -26,7 +26,7 @@ Se agregó la clase Level 3 que extiende de Level
 
 ##### Class: Cherry - Class: Hazelnut
 
-Dentro del package "element" agregamos las clases Cherry y Hazelnut que extienden de la clase abtracta Fruit. Estos elementos se marcan como indestructibles. 
+Dentro del package "element" agregamos las clases Cherry y Hazelnut que extienden de la clase abstracta UndestroyableElement. Estos elementos se marcan como indestructibles. 
 
 ### Otras funcionalidades
 Se agregó el Package Alert cuyo objetivo es mostrar en pantalla si se ganó o perdió el nivel. 
