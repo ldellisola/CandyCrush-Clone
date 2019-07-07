@@ -4,33 +4,33 @@ Se eligió realizar las implementaciones de Golden Board y Cherry & Hazelnut
 
 ## Funcionalidades Agregadas
 
-En primer lugar, se creó la clase abstracta `Level` que realiza los métodos comunes a todos los niveles: llenar el tablero con los caramelos, revisar si un movimiento es válido y a su vez le agregamos un método para preguntar si el nivel tiene celdas doradas. Este último método fue agregado, no solo para la implementación del `Level2`, sino también en caso de que se tenga un nivel con celdas doradas y otros elementos y una vez ganado el nivel se pueda quitar el efecto dorado de esas celdas en específico.
+En primer lugar, se creó la clase abstracta Level que realiza los métodos comunes a todos los niveles: llenar el tablero con los caramelos, revisar si un movimiento es válido y a su vez le agregamos un método para preguntar si el nivel tiene celdas doradas. Este último método fue agregado, no solo para la implementación del Level 2, sino también en caso de que se tenga un nivel con celdas doradas y otros elementos y una vez ganado el nivel se pueda quitar el efecto dorado de esas celdas en específico.
 
-Luego, se agregaron las clases `Level2` para la implementación de Golden Board y `Level3` para la de Cherry & Hazelnut 
+Luego, se agregaron las clases Level 2 para la implementación de Golden Board y Level 3 para la de Cherry & Hazelnut 
 
 ### GOLDEN BOARD
-Para esta implementación es necesario tener muy en claro la distinción entre "marcar como dorado" y "pintar de dorado". La primera hace referencia a, en el backend, setear el estado de una `GoldenCell` (clase que luego será explicada). En cambio, la segunda pone el efecto dorado a una celda en el frontend. 
+Para esta implementación es necesario tener muy en claro la distinción entre "marcar como dorado" y "pintar de dorado". La primera hace referencia a, en el backend, setear el estado de una GoldenCell (clase que luego será explicada). En cambio, la segunda pone el efecto dorado a una celda en el frontend. 
 
-Se agregó la clase `Level2` que extiende de `Level`. Su objetivo es marcar las celdas como doradas
+Se agregó la clase Level 2 que extiende de Level. Su objetivo es marcar las celdas como doradas
 
-##### Class: `GoldenCell` 
+##### Class: GoldenCell 
 
 Esta clase permite marcar a las celdas como doradas luego de hacer un intercambio. 
 
-##### Class: `GoldenGameListener`
-Se decidió hacer esta clase a fin de mejorar la eficiencia del `Level2`. Su objetivo es que aquellas celdas que ya están pintadas de dorado no vuelvan a pintarse. 
+##### Class: GoldenGameListener
+Se decidió hacer esta clase a fin de mejorar la eficiencia del Level 2. Su objetivo es que aquellas celdas que ya están pintadas de dorado no vuelvan a pintarse. 
 
 ### CHERRY & HAZELNUT
 
-Se agregó la clase `Level3` que extiende de `Level`.
+Se agregó la clase Level 3 que extiende de Level
 
 ##### Class: Cherry - Class: Hazelnut
 
-Dentro del package `element` agregamos las clases `Cherry` y `Hazelnut` que extienden de la clase abtracta Fruit. Estos elementos se marcan como indestructibles. 
+Dentro del package "element" agregamos las clases Cherry y Hazelnut que extienden de la clase abtracta Fruit. Estos elementos se marcan como indestructibles. 
 
 ### Otras funcionalidades
-Se agregó el Package `Alert` cuyo objetivo es mostrar en pantalla si se ganó o perdió el nivel. 
-La clase`GameInfoListener` es la encargada de mostrar los paneles de movimientos restantes, puntaje y `GoldenCells` pintadas o Cantidad de frutas restantes dependiendo de cada nivel.
+Se agregó el Package Alert cuyo objetivo es mostrar en pantalla si se ganó o perdió el nivel. 
+La clase GameInfoListener es la encargada de mostrar los paneles de Movimientos restantes, Score y GoldenCells pintadas o Cantidad de frutas restantes dependiendo de cada nivel.
 
 ## Estructura del Proyecto
 
@@ -46,26 +46,9 @@ Luego tenemos a una clase abstracta `Level` que es la encargada de posicionar la
 
 Por ultimo tenemos a las clases `Level1`, `Level2` y `Level3` que son los niveles que el jugador va a jugar. Estas clases heredan de `Level` y tambien agregan funcionalidad como un objetivo a lograr. Si se desea mantener la forma de los niveles actuales, solo seria cuestión de hacer una clase que herede `Level` y luego agregarle una funcionalidad nueva.
 
- ## Dificultades Encontradas
+ 
 
-La primer gran dificultad que encontramos fue entender como funcionaba el proyecto base, la conexión de las clases y como separar algunas clases ya escritas para que sea mas modular, como por ejemplo en el caso de `Level1`.
-
-Otro problema fue nuestro poco entendimiento de como funciona JavaFX, debido a que este es nuestro primer proyecto verdadero. Por ejemplo, mientras que sabíamos que tenia que haber un `Frame`, una `Scene` y tambien puede haber `Alert`, al momento de debugear se complicaba aislar una línea de código en particular como la causante del problema. Otro ejemplo de esto fue tratando de poner las celdas doradas, ya que por algún motivo, si eliminábamos las líneas 5, 6, 7 y 8 no se ponían doradas las celdas de la ultima fila.
-
-```java
-1.	if( \*Condition*\ ) {
-2.		timeLine.getKeyFrames().add(
-3.     	   new KeyFrame(frameTime, e ->panel.setGoldenEffect(finalI, finalJ))
-4.    	);
-5.	}else
-6.		timeLine.getKeyFrames().add(
-7.    		new KeyFrame(frameTime, e ->panel.stopGoldenEffect(finalI, finalJ))
-8.			);
-```
-
-Tambien tuvimos problemas tratando de modularizar el código. Nos encontrábamos con varias formas de hacerlo pero todas tenían sus desventajas, entonces teníamos que pensar bien que nos convenía en cada caso y  que sacrificios hacer para que el código sea lo mas optimo posible.
-
-## Modificaciones al Proyecto Inicial
+## Modificaciones al proyecto inicial
 
 ### CandyGame.java
 
