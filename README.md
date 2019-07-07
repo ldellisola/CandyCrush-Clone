@@ -1,16 +1,37 @@
 # Candy Crush
 
+Se eligió realizar las implementaciones de Golden Board y Cherry & Hazelnut
+
 ## Funcionalidades Agregadas
 
-### Golden Cells
+En primer lugar, se creó la clase abstracta Level que realiza los métodos comunes a todos los niveles: llenar el tablero con los caramelos, revisar si un movimiento es válido y a su vez le agregamos un método para preguntar si el nivel tiene celdas doradas. Este último método fue agregado, no solo para la implementación del Level 2, sino también en caso de que se tenga un nivel con celdas doradas y otros elementos y una vez ganado el nivel se pueda quitar el efecto dorado de esas celdas en específico.
 
-La primer adicion al proyecto fue la capcidad de convertir en doradas a las celdas luego de hacer un  intercambio. 
+Luego, se agregaron las clases Level 2 para la implementación de Golden Board y Level 3 para la de Cherry & Hazelnut 
 
-### Cherries
+### GOLDEN BOARD
+Para esta implementación es necesario tener muy en claro la distinción entre "marcar como dorado" y "pintar de dorado". La primera hace referencia a, en el backend, setear el estado de una GoldenCell (clase que luego será explicada). En cambio, la segunda pone el efecto dorado a una celda en el frontend. 
 
-Tambien decidimos impementar las Cherries como segunda funcionalidad agregada.
+Se agregó la clase Level 2 que extiende de Level. Su objetivo es marcar las celdas como doradas
+
+#####Class: GoldenCell 
+
+Esta clase permite marcar a las celdas como doradas luego de hacer un intercambio. 
+
+#####Class: GoldenGameListener
+Se decidió hacer esta clase a fin de mejorar la eficiencia del Level 2. Su objetivo es que aquellas celdas que ya están pintadas de dorado no vuelvan a pintarse. 
+
+###CHERRY & HAZELNUT
+
+Se agregó la clase Level 3 que extiende de Level
+
+#####Class: Cherry - Class: Hazelnut
+
+Dentro del package "element" agregamos las clases Cherry y Hazelnut que extienden de la clase abtracta Fruit. Estos elementos se marcan como indestructibles. 
 
 
+###Otras funcionalidades
+Se agregó el Package Alert cuyo objetivo es mostrar en pantalla si se ganó o perdió el nivel. 
+La clase GameInfoListener es la encargada de mostrar los paneles de Movimientos restantes, Score y GoldenCells pintadas o Cantidad de frutas restantes dependiendo de cada nivel.
 
 ## Modificaciones al proyecto inicial
 
