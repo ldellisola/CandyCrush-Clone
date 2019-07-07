@@ -1,24 +1,40 @@
-# Candy Crush - Informe
+# Trabajo Práctico Final Programación Orientada a Objetos
+
+
+
+## Integrantes
+
+- Piñeiro, Eugenia	-	Legajo:	59449
+- Torrusio, Lucía 	  -    Legajo:    59489
+- Dell'Isola, Lucas     -    Legajo:    58025
+
+
+
+**Entrega**:	Final 2019, 1$^{er}$ cuatrimestre
+
+---
+
+# Informe - Candy Crush
 
 Se eligió realizar las implementaciones de Golden Board y Cherry & Hazelnut
 
 ## Funcionalidades Agregadas
 
-En primer lugar, se creó la clase abstracta Level que realiza los métodos comunes a todos los niveles: llenar el tablero con los caramelos, revisar si un movimiento es válido y a su vez le agregamos un método para preguntar si el nivel tiene celdas doradas. Este último método fue agregado, no solo para la implementación del Level 2, sino también en caso de que se tenga un nivel con celdas doradas y otros elementos y una vez ganado el nivel se pueda quitar el efecto dorado de esas celdas en específico.
+En primer lugar, se creó la clase abstracta `Level` que realiza los métodos comunes a todos los niveles: llenar el tablero con los caramelos, revisar si un movimiento es válido y a su vez le agregamos un método para preguntar si el nivel tiene celdas doradas. Este último método fue agregado, no solo para la implementación del `Level2`, sino también en caso de que se tenga un nivel con celdas doradas y otros elementos y una vez ganado el nivel se pueda quitar el efecto dorado de esas celdas en específico.
 
 Luego, se agregaron las clases `Level 2` y `Level 3` para la implementación de Golden Board y la de Cherry & Hazelnut respectivamente.
 
 ### GOLDEN BOARD
 Para esta implementación es necesario tener muy en claro la distinción entre "marcar como dorado" y "pintar de dorado". La primera hace referencia a, en el backend, setear el estado de una GoldenCell (clase que luego será explicada). En cambio, la segunda pone el efecto dorado a una celda en el frontend. 
 
-Se agregó la clase Level 2 que extiende de Level. Su objetivo es marcar las celdas como doradas
+Se agregó la clase `Level2` que extiende de `Level`. Su objetivo es marcar las celdas como doradas
 
 ##### GoldenCell.java 
 
 Esta clase permite marcar a las celdas como doradas luego de hacer un intercambio. 
 
 ##### GoldenGameListener.java
-Se decidió hacer esta clase a fin de mejorar la eficiencia del Level 2. Su objetivo es que aquellas celdas que ya están pintadas de dorado no vuelvan a pintarse. 
+Se decidió hacer esta clase a fin de mejorar la eficiencia del `Level2`. Su objetivo es que aquellas celdas que ya están pintadas de dorado no vuelvan a pintarse. 
 
 ### CHERRY & HAZELNUT
 
@@ -30,7 +46,7 @@ Dentro del package `element` agregamos las clases `Cherry` y `Hazelnut` que exti
 
 ### Otras funcionalidades
 Se agregó el Package Alert cuyo objetivo es mostrar en pantalla si se ganó o perdió el nivel. 
-La clase GameInfoListener es la encargada de mostrar los paneles de Movimientos restantes, Score y GoldenCells pintadas o Cantidad de frutas restantes dependiendo de cada nivel.
+La clase `GameInfoListener` es la encargada de mostrar los paneles de Movimientos restantes, Score yGoldenCells pintadas o Cantidad de frutas restantes dependiendo de cada nivel.
 
 ## Estructura del Proyecto
 
@@ -361,23 +377,24 @@ El único cambio en la clase `ScorePanel` fue para que tome `long` en vez de `St
 
 ## Problemas encontrados durante el desarrollo 
 
-####Separación entre Frontend y Backend: 
+#### Separación entre Frontend y Backend: 
 Aunque esto ya estaba implementado en el proyecto original, siguió siendo una complicación saber dónde debía estar cada clase. Sobretodo la distinción entre "marcar una celda como dorada" y "pintar de dorado una celda".
 
-####Estructura de los niveles: 
-Al principio del trabajo se discutió cuál era la mejor forma de organizar los niveles. Se debatió entre dos opciones: que los mismos extiendan de Grid o que haya una clase abstracta `Level` y luego cada nivel extienda de la misma. Se resolvió implementando la segunda opción.
+#### Estructura de los niveles: 
+Al principio del trabajo se discutió cuál era la mejor forma de organizar los niveles. Se debatió entre dos opciones: que los mismos extiendan de `Grid` o que haya una clase abstracta `Level` y luego cada nivel extienda de la misma. Se resolvió implementando la segunda opción.
 
-####Modularización: 
+#### Modularización: 
 Simultáneamente al problema de la organización de los “Levels” , se presentó otro problema: la repetición de código. Esto fue solucionado al mismo tiempo que se solucionó el caso anterior.
 
-####Diseño del GoldenBoard (Level 2) :  
+#### Diseño del GoldenBoard (Level 2) :  
+
 En un principio se pensó en crear una clase `GoldenGrid` la cual estaría formada solo por celdas de tipo golden, pero como sería utilizada únicamente por el nivel 2 se decidió que no era una buena implementación, ya que se separaba al nivel 2 del resto de los niveles. Esto fue solucionado cuando se optó por implementar la clase `GoldenGameListener`.
 Además no se podía hacer una buena implementación para que los cells se pinten de forma correcta. Luego de esto se buscó cómo optimizar la forma de pintar las celdas doradas con el objetivo de no volver a pintar un celda que ya tenía el efecto dorado.
 
-####Utilización de JavaFX:
-No se contaba con un gran conocimiento sobre JavaFX, por lo tanto se dificultó interpretar algunas partes del código original. 
+#### Utilización de JavaFX:
+No se contaba con un gran conocimiento sobre JavaFX, por lo tanto se dificultó interpretar algunas partes del código original.
 
-####Funcionamiento de la implementación provista por la cátedra:
+#### Funcionamiento de la implementación provista por la cátedra:
 Por último, cabe destacar que no resultó fácil interpretar todas las clases que ya estaban implementadas por la cátedra, pero una vez leído el código con mucho detenimiento se logró comenzar a trabajar. 
 
 
