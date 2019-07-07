@@ -14,6 +14,7 @@ public abstract class GameState {
 	}
 	
 	public void addMove() {
+		System.out.println("Incremented Moves");
 		moves++;
 	}
 	
