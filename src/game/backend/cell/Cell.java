@@ -11,6 +11,9 @@ public class Cell {
 	private Cell[] around = new Cell[Direction.values().length];
 	private Element content;
 
+	public CellType getType(){
+		return CellType.NORMAL;
+	}
 	
 	public Cell(Grid grid) {
 		this.grid = grid;

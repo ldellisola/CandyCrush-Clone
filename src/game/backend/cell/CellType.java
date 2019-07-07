@@ -2,6 +2,6 @@ package game.backend.cell;
 
 public enum CellType {
 
-    NORMAL, GOLDEN;
+    NORMAL, GOLDEN, GENERATOR;
 
 }
