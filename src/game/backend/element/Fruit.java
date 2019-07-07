@@ -1,6 +1,6 @@
 package game.backend.element;
 
-public abstract class UndestroyableElement extends Element
+public abstract class Fruit extends Element
 {
 	@Override
 	public boolean isMovable() {

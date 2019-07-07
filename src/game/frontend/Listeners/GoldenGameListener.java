@@ -3,6 +3,7 @@ package game.frontend.Listeners;
 import game.backend.CandyGame;
 import game.backend.GameListener;
 import game.backend.cell.Cell;
+import game.backend.cell.CellType;
 import game.backend.cell.GoldenCell;
 import game.backend.element.Element;
 import game.frontend.CandyFrame;
@@ -51,7 +52,7 @@ public class GoldenGameListener implements GameListener {
 
 						if(!goldenMatrix[i][j]){
 
-							if(cell instanceof GoldenCell && ((GoldenCell)cell).getGoldenState() ) {
+							if(cell.getType() == CellType.GOLDEN && ((GoldenCell)cell).getGoldenState() ) {
 								timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> panel.setGoldenEffect(finalI, finalJ)));
 								goldenMatrix[i][j] = true;
 							}else
