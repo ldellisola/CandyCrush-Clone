@@ -13,23 +13,23 @@ Para esta implementación es necesario tener muy en claro la distinción entre "
 
 Se agregó la clase Level 2 que extiende de Level. Su objetivo es marcar las celdas como doradas
 
-##### Class: GoldenCell 
+##### GoldenCell.java
 
-Esta clase permite marcar a las celdas como doradas luego de hacer un intercambio. 
+Esta clase permite marcar a las celdas como doradas luego de hacer un intercambio válido.. 
 
-##### Class: GoldenGameListener
+##### GoldenGameListener.java
 Se decidió hacer esta clase a fin de mejorar la eficiencia del Level 2. Su objetivo es que aquellas celdas que ya están pintadas de dorado no vuelvan a pintarse. 
 
 ### CHERRY & HAZELNUT
 
 Se agregó la clase Level 3 que extiende de Level
 
-##### Class: Cherry - Class: Hazelnut
+##### Cherry.java - Hazelnut.java
 
-Dentro del package "element" agregamos las clases Cherry y Hazelnut que extienden de la clase abstracta UndestroyableElement. Estos elementos se marcan como indestructibles. 
+Dentro del package "element" se agregaron las clases Cherry y Hazelnut que extienden de la clase abstracta UndestroyableElement. Estos elementos se marcan como indestructibles. 
 
 ### Otras funcionalidades
-Se agregó el Package Alert cuyo objetivo es mostrar en pantalla si se ganó o perdió el nivel. 
+Se agregó el Package Alerts cuyo objetivo es mostrar en pantalla si se ganó o perdió el nivel. 
 La clase GameInfoListener es la encargada de mostrar los paneles de Movimientos restantes, Score y GoldenCells pintadas o Cantidad de frutas restantes dependiendo de cada nivel.
 
 ## Estructura del Proyecto
