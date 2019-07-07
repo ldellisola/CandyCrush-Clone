@@ -6,6 +6,11 @@ import game.backend.element.CandyColor;
 import game.backend.element.Element;
 
 public class CandyGeneratorCell extends Cell {
+
+	@Override
+	public CellType getType(){
+		return CellType.GENERATOR;
+	}
 	
 	public CandyGeneratorCell(Grid grid) {
 		super(grid);

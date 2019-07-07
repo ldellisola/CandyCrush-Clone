@@ -19,4 +19,8 @@ public class GoldenCell extends Cell {
     }
 
 
+    @Override
+    public CellType getType(){
+        return CellType.GOLDEN;
+    }
 }

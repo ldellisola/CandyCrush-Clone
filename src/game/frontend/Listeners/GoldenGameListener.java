@@ -87,6 +87,59 @@ public class GoldenGameListener implements GameListener {
 
 	}
 
+	/*@Override
+	public void gridUpdated() {
+
+		if(game.getCurrentLevel().hasGoldenCells()){
+
+			if(game.isFinished()){
+
+				cleanGoldenMatrix();
+
+				Timeline timeLine = new Timeline();
+				Duration frameGap = Duration.millis(100);
+				Duration frameTime = Duration.ZERO;
+				for (int i = 0; i < game.getSize() ; i++) {
+					for (int j = 0; j < game.getSize() ; j++) {
+						Cell cell = game.get(i, j);
+						int finalI = i;
+						int finalJ = j;
+
+						timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> panel.stopGoldenEffect(finalI, finalJ)));
+					}
+					frameTime = frameTime.add(frameGap);
+				}
+				timeLine.play();
+			}
+			else {
+
+
+				Timeline timeLine = new Timeline();
+				Duration frameGap = Duration.millis(100);
+				Duration frameTime = Duration.ZERO;
+				for (int i = game.getSize() - 1; i >= 0; i--) {
+					for (int j = game.getSize() - 1; j >= 0; j--) {
+						int finalI = i;
+						int finalJ = j;
+						Cell cell = game.get(i, j);
+
+						if(!goldenMatrix[i][j]){
+
+							if(cell instanceof GoldenCell && ((GoldenCell)cell).getGoldenState() ) {
+								timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> panel.setGoldenEffect(finalI, finalJ)));
+								goldenMatrix[i][j] = true;
+							}//else
+							//timeLine.getKeyFrames().add(new KeyFrame(frameTime, e -> panel.stopGoldenEffect(finalI, finalJ)));
+						}
+					}
+					frameTime = frameTime.add(frameGap);
+				}
+				timeLine.play();
+
+			}
+		}
+
+	}*/
 
 	@Override
 	public void cellExplosion(Element e) {
