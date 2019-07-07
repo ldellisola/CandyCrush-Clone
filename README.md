@@ -32,6 +32,12 @@ Dentro del package "element" agregamos las clases Cherry y Hazelnut que extiende
 Se agregó el Package Alert cuyo objetivo es mostrar en pantalla si se ganó o perdió el nivel. 
 La clase GameInfoListener es la encargada de mostrar los paneles de Movimientos restantes, Score y GoldenCells pintadas o Cantidad de frutas restantes dependiendo de cada nivel.
 
+## Estructura del Proyecto
+
+Para la estructura del proyecto se continuo con el patron MVC establecido en el proyecto original, sumando a ello un par de clases  que heredan `GameListener` para poder comunicar al modelo y el usuario. Entre estas clases creadas esta `BasicGameListener` cuya tarea es dibujar en pantalla al tablero con todos los elementos e iconos. Tambien implementamos la clase `GoldenGameListener` que se encarga de detectar en que niveles se utilizan `GoldenCell` para poder pintar de dorado cuando una de esas celdas fue marcada como dorada en el modelo. A la hora de crear la clase se nos presentaron dos opciones, podiamos hacer al listener para que solo sirva en niveles donde todas las celdas son `GoldenCell`, que seria mas simple, o podiamos intentar de hacer una clase mas general, que permita que 
+
+
+
 ## Modificaciones al proyecto inicial
 
 ### CandyGame.java
