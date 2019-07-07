@@ -10,7 +10,7 @@ import java.util.List;
 public class CandyGame implements GameListener {
 	
 	private Class<?> levelClass;
-	private int levelIndex =0;
+	private int levelIndex = 0;
 	private Grid grid;
 	private GameState state;
 
@@ -32,7 +32,7 @@ public class CandyGame implements GameListener {
 		try {
 			grid = (Grid)levelClass.newInstance();
 		} catch(IllegalAccessException | InstantiationException e) {
-			System.out.println("ERROR AL INICIAR");
+			System.out.println("ERROR STARTING GAME");
 		}
 		state = grid.createState();
 		grid.initialize();
@@ -50,7 +50,7 @@ public class CandyGame implements GameListener {
 			try {
 				grid = (Grid) levelClass.newInstance();
 			} catch (IllegalAccessException | InstantiationException e) {
-				System.out.println("ERROR AL INICIAR");
+				System.out.println("ERROR STARTING GAME");
 			}
 			state = grid.createState();
 			grid.initialize();
@@ -110,7 +110,7 @@ public class CandyGame implements GameListener {
 		return state.getMaxMoves();
 	}
 
-	public int currMovements(){
+	public int getCurrMovements(){
 		return state.getMoves();
 	}
 

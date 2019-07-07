@@ -9,10 +9,8 @@ import game.frontend.Panels.MovementsPanel;
 import game.frontend.Panels.ScorePanel;
 import javafx.scene.layout.BorderPane;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 public class GameInfoListener implements GameListener {
 	private MovementsPanel movements = new MovementsPanel();
@@ -34,7 +32,7 @@ public class GameInfoListener implements GameListener {
 	@Override
 	public void gridUpdated() {
 		goals.update(game.getCurrentGoal(),game.getGoal(),game.getGoalDescription());
-		movements.update(game.currMovements(),game.maxMovements());
+		movements.update(game.getCurrMovements(),game.maxMovements());
 		scorePanel.updateScore(game.getScore());
 	}
 
